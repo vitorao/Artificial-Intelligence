@@ -1,0 +1,60 @@
+/*
+  Created by Vitor Araujo
+*/
+
+#include <iostream>
+#include <math.h>
+#include <time.h>
+
+using namespace std;
+
+int main(){
+	float y_current = 0, y_next, variation, x;
+	float pontos[20];
+	float maximus[20];
+	float global_max = 0;
+	float T = 0.1;
+	
+	int count = 0;
+	
+	
+	srand(time(0));	
+	
+	for(int i=0; i<20; i++){
+		float a = rand() % 20 ;
+		float b = rand() % -20 ;
+		float r_float;
+		r_float = a-b/20.0;
+		float x;
+		pontos[i] = r_float;
+	}	
+	
+	for(int j = 0; j < 20 ; j++)
+	{
+		x = pontos[j];
+		while(count < 1000){
+			
+			y_current = 10 * (sin(x) / x);
+	
+			variation = x + T;
+			
+			y_next = 10 * (sin(variation) / variation);
+		
+			if(y_current < y_next){
+				y_current = y_next;
+				x = variation;
+			}
+			count++;
+		}
+		maximus[j] = y_current;
+		count = 0;
+	}
+	
+	for(int k = 0; k < 20; k++){
+		if(maximus[k] >= global_max)
+			global_max = maximus[k];
+		cout << "An aleatory point: " <<  pontos[k] << " find a local maximum: " << maximus[k] << endl;
+	}	
+	cout << "The global maximum is: " << global_max << endl;
+}
+
